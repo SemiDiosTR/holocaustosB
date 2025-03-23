@@ -15,8 +15,8 @@ public class Cliente {
 	//TODO VALIDAR LOS CAMPOS DE LA TABLA (not null, min,max, etc)
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="VUELO_SEQ")
-	@SequenceGenerator(name="VUELO_SEQ",sequenceName="VUELO_SEQ", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="CLIENTE_SEQ")
+	@SequenceGenerator(name="CLIENTE_SEQ",sequenceName="CLIENTE_SEQ", allocationSize=1)
 	@Column(name= "ID_CLIENTE")
 	private Long idCliente;
 	
@@ -34,6 +34,8 @@ public class Cliente {
 	
 	@Column(name="DIRECCION")
 	private String direccion;
+	
+	
 
 	public Long getIdCliente() {
 		return idCliente;
