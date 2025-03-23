@@ -13,8 +13,8 @@ import jakarta.persistence.Table;
 public class Producto {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="VUELO_SEQ")
-	@SequenceGenerator(name="VUELO_SEQ",sequenceName="VUELO_SEQ",allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="PRODUCTO_SEQ")
+	@SequenceGenerator(name="PRODUCTO_SEQ",sequenceName="PRODUCTO_SEQ",allocationSize=1)
 	@Column(name= "ID_PRODUCTO")
 	private Long idProducto;
 	
