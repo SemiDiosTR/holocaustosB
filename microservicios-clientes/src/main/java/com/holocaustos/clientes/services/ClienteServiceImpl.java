@@ -1,5 +1,6 @@
 package com.holocaustos.clientes.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.holocaustos.clientes.mappers.ClienteMapper;
+import com.holocaustos.clientes.models.dto.ClienteDTO;
 import com.holocaustos.clientes.models.entities.Cliente;
 import com.holocaustos.clientes.models.repositories.ClientesRepository;
 
@@ -19,8 +22,13 @@ public class ClienteServiceImpl implements IClienteService{
 	
 	@Override
 	@Transactional(readOnly=true)
-	public List<Cliente> listar() {
-		return repository.findAll();
+	public List<ClienteDTO> listar() {
+		List<Cliente> clientesEntity = repository.findAll();
+		List<ClienteDTO> clientesDTO = new ArrayList<ClienteDTO>();
+		for(Cliente c: clientesEntity) {
+			clientesDTO.add(ClienteMapper.entitytoDto(c));
+		}
+		return clientesDTO;
 	}
 
 	@Override

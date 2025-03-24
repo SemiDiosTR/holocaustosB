@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.holocaustos.clientes.models.dto.ClienteDTO;
 import com.holocaustos.clientes.models.entities.Cliente;
 import com.holocaustos.clientes.services.IClienteService;
 
@@ -29,7 +30,7 @@ public class ClienteController {
 	private IClienteService service;
 
 	@GetMapping
-	public ResponseEntity<List<Cliente>> getAll() {
+	public ResponseEntity<List<ClienteDTO>> getAll() {
 		return ResponseEntity.ok(service.listar());
 	}
 
