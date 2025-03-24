@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.holocaustos.clientes.models.entities.Cliente;
 
-public interface IClienteService { //Generico es redundante en estructura Microservice
+public interface IClienteService { //Generico es redundante en diseño Microservice
 
 	List<Cliente> listar();
 	Optional<Cliente> obtenerPorId(Long id);
