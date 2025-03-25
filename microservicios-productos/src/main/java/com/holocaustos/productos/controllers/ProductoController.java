@@ -17,8 +17,9 @@ public class ProductoController {
 	@Autowired
 	private IProductoService service;
 	
-	@GetMapping
-	public ResponseEntity<List<Producto>> getAll(){
-		return ResponseEntity.ok(service.listar());
+	@GetMapping //lo convierte en un manejador para solicitudes HTTP GET
+	public ResponseEntity<List<Producto>> getAll(){ //devuelve una respuesta http con con un cuerpo que contiene una lista de objetos
+		return ResponseEntity.ok(service.listar());//devuelve la lista de productos
+		
 	}
 }
