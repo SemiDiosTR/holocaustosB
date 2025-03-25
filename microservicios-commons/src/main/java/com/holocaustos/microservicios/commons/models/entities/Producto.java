@@ -1,4 +1,4 @@
-package com.holocaustos.productos.models.entities;
+package com.holocaustos.microservicios.commons.models.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
