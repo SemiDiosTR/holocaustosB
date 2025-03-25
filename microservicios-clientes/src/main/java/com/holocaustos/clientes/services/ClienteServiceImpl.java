@@ -34,9 +34,9 @@ public class ClienteServiceImpl implements IClienteService{
 	@Override
 	@Transactional(readOnly=true)
 	public ClienteDTO obtenerPorId(Long id) {
-		Optional<Cliente> entity = repository.findById(id);
-		if(entity.isPresent()) {
-			ClienteDTO dto = ClienteMapper.entitytoDto(entity.get());
+		Optional<Cliente> optEntity = repository.findById(id);
+		if(optEntity.isPresent()) {
+			ClienteDTO dto = ClienteMapper.entitytoDto(optEntity.get());
 			return dto;
 		}
 		return null; 
@@ -45,32 +45,32 @@ public class ClienteServiceImpl implements IClienteService{
 	
 	@Override
 	@Transactional
-	public Cliente crear(Cliente cliente) {
-		return repository.save(cliente);
+	public ClienteDTO crear(ClienteDTO clienteDto) {
+		Cliente entity = ClienteMapper.dtoToEntity(clienteDto);
+		entity = repository.save(entity);
+		clienteDto = ClienteMapper.entitytoDto(entity);
+		return clienteDto;
 	}
 
 	@Override
-	public Optional<Cliente> eliminarPorId(Long id) {
-		Optional <Cliente> entity = repository.findById(id);
-		if(entity.isPresent()) {
+	public Optional<ClienteDTO> eliminarPorId(Long id) {
+		Optional <Cliente> cliente = repository.findById(id);		
+		if(cliente.isPresent()) {
 			repository.deleteById(id);
-			return entity;
+			ClienteDTO clienteDto = ClienteMapper.entitytoDto(cliente.get());
+			return Optional.of(clienteDto);
 		}
 		return Optional.empty();
 	}
 
 	@Override
-	public Cliente actualizar(Cliente cliente, Long id) {
+	public ClienteDTO actualizar(ClienteDTO clienteDto, Long id) {
 		Optional<Cliente> optCliente = repository.findById(id);
 		if (optCliente.isPresent()) {
-			Cliente clienteDB = optCliente.get();
-			clienteDB.setNombre(cliente.getNombre());
-			clienteDB.setApellido(cliente.getApellido());
-			clienteDB.setDireccion(cliente.getDireccion());
-			clienteDB.setEmail(cliente.getEmail());
-			clienteDB.setTelefono(cliente.getTelefono());
-			repository.save(clienteDB);
-			return clienteDB;
+			Cliente modCliente = ClienteMapper.dtoToEntity(clienteDto);
+			repository.save(modCliente);
+			clienteDto = ClienteMapper.entitytoDto(modCliente);
+			return clienteDto;
 		}
 		return null;
 	}
