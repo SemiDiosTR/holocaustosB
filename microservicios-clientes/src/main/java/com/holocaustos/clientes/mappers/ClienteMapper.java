@@ -1,7 +1,5 @@
 package com.holocaustos.clientes.mappers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.holocaustos.clientes.models.dto.ClienteDTO;
 import com.holocaustos.microservicios.commons.models.entities.Cliente;
 

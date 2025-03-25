@@ -20,16 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.holocaustos.clientes.models.dto.ClienteDTO;
 import com.holocaustos.clientes.services.IClienteService;
-import com.holocaustos.microservicios.commons.controllers.CommonController;
-import com.holocaustos.microservicios.commons.models.entities.Cliente;
 
 import jakarta.validation.Valid;
 
 @RestController
-
 //mandar a llama el puerto de angular, en donde enviaremos los datos
 @CrossOrigin(value = "http://localhost:4200") 
-
 public class ClienteController {
 
 	@Autowired
@@ -42,7 +38,6 @@ public class ClienteController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ClienteDTO> getById(@PathVariable Long id) {
-		//TODO Manejar NPException cuando el ID no existe
 		Optional<ClienteDTO> entity = Optional.of(service.obtenerPorId(id));
 		if (entity.isPresent()) {
 			return ResponseEntity.ok(entity.get());
@@ -50,35 +45,33 @@ public class ClienteController {
 		return ResponseEntity.notFound().build();
 	}
 
-	//public ResponseEntity<?> create(@Valid @RequestBody E entity, BindingResult result){
-
 	@PostMapping
-	public ResponseEntity<Cliente> create(@Valid @RequestBody Cliente entity, BindingResult result){
+	public ResponseEntity<ClienteDTO> create(@Valid @RequestBody ClienteDTO clienteDto, BindingResult result){
 		if(result.hasErrors()) {
-			return (ResponseEntity<Cliente>) this.validar(result);
+			return (ResponseEntity<ClienteDTO>) this.validar(result);
 		}
-		Cliente entityDB = service.crear(entity);
-		return ResponseEntity.status(HttpStatus.CREATED).body(entityDB);
+		clienteDto = service.crear(clienteDto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(clienteDto);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Cliente> delete(@PathVariable Long id){
-		Optional <Cliente> entity = service.eliminarPorId(id);
-		if(entity.isPresent()) {
-			return ResponseEntity.ok(entity.get());
+	public ResponseEntity<ClienteDTO> delete(@PathVariable Long id){
+		Optional <ClienteDTO> optClienteDto = service.eliminarPorId(id);
+		if(optClienteDto.isPresent()) {
+			return ResponseEntity.ok(optClienteDto.get());
 		}
 		return ResponseEntity.notFound().build();
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody Cliente cliente, BindingResult result,
+	public ResponseEntity<ClienteDTO> update(@Valid @RequestBody ClienteDTO clienteDto, BindingResult result,
 			@PathVariable Long id) {
 		if (result.hasErrors()) {
-			return this.validar(result);
+			return (ResponseEntity<ClienteDTO>) this.validar(result);
 		}
-		Cliente clienteDB = service.actualizar(cliente, id);
-		if (clienteDB != null) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(clienteDB);
+		clienteDto = service.actualizar(clienteDto, id);
+		if (clienteDto != null) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(clienteDto);
 		}
 		return ResponseEntity.notFound().build();
 	}

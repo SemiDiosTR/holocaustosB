@@ -1,6 +1,5 @@
 package com.holocaustos.clientes.models.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 
 public class ClienteDTO {
