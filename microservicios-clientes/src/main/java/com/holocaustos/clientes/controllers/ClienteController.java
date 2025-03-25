@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.holocaustos.clientes.models.dto.ClienteDTO;
-import com.holocaustos.clientes.models.entities.Cliente;
 import com.holocaustos.clientes.services.IClienteService;
+import com.holocaustos.microservicios.commons.controllers.CommonController;
+import com.holocaustos.microservicios.commons.models.entities.Cliente;
 
 import jakarta.validation.Valid;
 
@@ -35,8 +36,9 @@ public class ClienteController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> getById(@PathVariable Long id) {
-		Optional<Cliente> entity = service.obtenerPorId(id);
+	public ResponseEntity<ClienteDTO> getById(@PathVariable Long id) {
+		//TODO Manejar NPException cuando el ID no existe
+		Optional<ClienteDTO> entity = Optional.of(service.obtenerPorId(id));
 		if (entity.isPresent()) {
 			return ResponseEntity.ok(entity.get());
 		}

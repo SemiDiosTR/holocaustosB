@@ -1,4 +1,4 @@
-package com.holocaustos.clientes.models.entities;
+package com.holocaustos.microservicios.commons.models.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +17,7 @@ public class Cliente {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clienteSeq")
-	@SequenceGenerator(name = "clienteSeq", sequenceName = "CLIENTE_SEQ", allocationSize = 5)
+	@SequenceGenerator(name = "clienteSeq", sequenceName = "CLIENTE_SEQ", allocationSize = 1)
 	@Column(name = "ID_CLIENTE")
 	private Long idCliente;
 

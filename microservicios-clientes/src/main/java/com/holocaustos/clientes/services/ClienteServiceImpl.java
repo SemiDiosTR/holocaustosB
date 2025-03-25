@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.holocaustos.clientes.mappers.ClienteMapper;
 import com.holocaustos.clientes.models.dto.ClienteDTO;
-import com.holocaustos.clientes.models.entities.Cliente;
 import com.holocaustos.clientes.models.repositories.ClientesRepository;
+import com.holocaustos.microservicios.commons.models.entities.Cliente;
 
 
 @Service
@@ -33,10 +33,16 @@ public class ClienteServiceImpl implements IClienteService{
 
 	@Override
 	@Transactional(readOnly=true)
-	public Optional<Cliente> obtenerPorId(Long id) {
-		return repository.findById(id);
+	public ClienteDTO obtenerPorId(Long id) {
+		Optional<Cliente> entity = repository.findById(id);
+		if(entity.isPresent()) {
+			ClienteDTO dto = ClienteMapper.entitytoDto(entity.get());
+			return dto;
+		}
+		return null; 
 	}
 
+	
 	@Override
 	@Transactional
 	public Cliente crear(Cliente cliente) {
