@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 
 @RestController
 //mandar a llama el puerto de angular, en donde enviaremos los datos
-@CrossOrigin(value = "http://localhost:4200") 
+//@CrossOrigin(value = "http://localhost:4200") 
 public class ClienteController {
 
 	@Autowired
@@ -33,6 +33,7 @@ public class ClienteController {
 
 	@GetMapping
 	public ResponseEntity<List<ClienteDTO>> getAll() {
+		System.out.println("CLIENTE CONTROLLER....");
 		return ResponseEntity.ok(service.listar());
 	}
 
