@@ -15,8 +15,8 @@ import jakarta.validation.constraints.NotNull;
 public class Producto {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="PRODUCTO_SEQ")
-	@SequenceGenerator(name="PRODUCTO_SEQ",sequenceName="PRODUCTO_SEQ",allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="PRODUCTOS_SEQ")
+	@SequenceGenerator(name="PRODUCTOS_SEQ",sequenceName="PRODUCTOS_SEQ",allocationSize=1)
 	@Column(name= "ID_PRODUCTO")
 	private Long idProducto;
 	

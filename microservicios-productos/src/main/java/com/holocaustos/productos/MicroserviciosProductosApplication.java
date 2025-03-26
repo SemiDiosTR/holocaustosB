@@ -5,7 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
-@EntityScan({"com.holocaustos.productos.models.entities", "com.holocaustos.pedidos.models.entities"})
+//@EntityScan(com.holocaustos.microservicios.commons.models.entities)
+//@EntityScan({"com.holocaustos.productos.models.entities", "com.holocaustos.pedidos.models.entities"})
+@EntityScan({"com.holocaustos.microservicios.commons.models.entities"})
 public class MicroserviciosProductosApplication {
 
 	public static void main(String[] args) {
@@ -13,3 +15,4 @@ public class MicroserviciosProductosApplication {
 	}
 
 }
+
