@@ -1,4 +1,4 @@
-package com.holocaustos.productos.controllers;
+package com.holocaustos.pedidos.controllers;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,28 +17,26 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.holocaustos.microservicios.commons.models.entities.Producto;
-import com.holocaustos.productos.models.dto.ProductoDTO;
-import com.holocaustos.productos.services.IProductoService;
+import com.holocaustos.pedidos.models.dto.PedidoDTO;
+import com.holocaustos.pedidos.services.IPedidoService;
 
 import jakarta.validation.Valid;
 
 @RestController
-public class ProductoController{
-
+public class PedidoController {
 	
 	@Autowired
-	private IProductoService service;
+	private IPedidoService service;
 	
 	@GetMapping //lo convierte en un manejador para solicitudes HTTP GET
-	public ResponseEntity<List<ProductoDTO>> getAll(){ //devuelve una respuesta http con con un cuerpo que contiene una lista de objetos
+	public ResponseEntity<List<PedidoDTO>> getAll(){ //devuelve una respuesta http con con un cuerpo que contiene una lista de objetos
 		return ResponseEntity.ok(service.listar());//devuelve la lista de productos
 		
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ProductoDTO> getById(@PathVariable Long id) {
-		Optional<ProductoDTO> entity = Optional.of(service.obtenerPorId(id));
+	public ResponseEntity<PedidoDTO> getById(@PathVariable Long id) {
+		Optional<PedidoDTO> entity = Optional.of(service.obtenerPorId(id));
 		if (entity.isPresent()) {
 			return ResponseEntity.ok(entity.get());
 		}
@@ -49,32 +46,36 @@ public class ProductoController{
 	
 	
 	@PostMapping
-	public ResponseEntity<ProductoDTO> create(@Valid @RequestBody ProductoDTO productoDto, BindingResult result){
+	public ResponseEntity<PedidoDTO> create(@Valid @RequestBody PedidoDTO pedidoDto, BindingResult result){
+		System.out.println("START CREATE...");
 		if(result.hasErrors()) {
-			return (ResponseEntity<ProductoDTO>) this.create(productoDto, result);
+			return (ResponseEntity<PedidoDTO>) this.validar(result);//pedidoDto, se quito de los parentecis ************
 		}
-		productoDto = service.crear(productoDto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(productoDto);
+		System.out.println("Pedido Controller HAS ERRORS Estado="+pedidoDto.getEstado());
+		
+		pedidoDto = service.crear(pedidoDto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoDto);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ProductoDTO> delete(@PathVariable Long id){
-		Optional <ProductoDTO> optProductoDto = service.eliminarPorId(id);
-		if(optProductoDto.isPresent()) {
-			return ResponseEntity.ok(optProductoDto.get());
+	public ResponseEntity<PedidoDTO> delete(@PathVariable Long id){
+		Optional <PedidoDTO> optPedidoDto = service.eliminarPorId(id);
+		if(optPedidoDto.isPresent()) {
+			return ResponseEntity.ok(optPedidoDto.get());
 		}
 		return ResponseEntity.notFound().build();
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody ProductoDTO productoDto, BindingResult result,
+	public ResponseEntity<PedidoDTO> update(@Valid @RequestBody PedidoDTO pedidoDto, BindingResult result,
 			@PathVariable Long id) {
 		if (result.hasErrors()) {
-			return this.validar(result);
+			return (ResponseEntity<PedidoDTO>) this.validar(result);
 		}
-		Producto productoD = service.actualizar(productoDto, id);
-		if (productoD != null) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(productoD);
+		pedidoDto = service.actualizar(pedidoDto, id);
+		
+		if (pedidoDto != null) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(pedidoDto);
 		}
 		return ResponseEntity.notFound().build();
 	}
@@ -86,4 +87,6 @@ public class ProductoController{
 		});
 		return ResponseEntity.badRequest().body(errores);
 	}
+	
+
 }

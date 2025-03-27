@@ -3,16 +3,16 @@ package com.holocaustos.productos.mappers;
 import org.springframework.stereotype.Component;
 
 import com.holocaustos.microservicios.commons.models.entities.Producto;
-import com.holocaustos.productos.models.dto.ProductosDTO;
+import com.holocaustos.productos.models.dto.ProductoDTO;
 
 @Component
 public class ProductoMapper {
 	
-	public static ProductosDTO entityDto(Producto producto) {
+	public static ProductoDTO entityDto(Producto producto) {
 		if (producto == null) {
 			return null;
 		}
-		ProductosDTO productoDto = new ProductosDTO();
+		ProductoDTO productoDto = new ProductoDTO();
 		productoDto.setIdProducto(producto.getIdProducto());
 		productoDto.setNombre(producto.getNombre());
 		productoDto.setDescripcion(producto.getDescripcion());
@@ -21,7 +21,7 @@ public class ProductoMapper {
 		return productoDto;
 	}
 	
-	public static Producto dtoEntity(ProductosDTO productosDto) {
+	public static Producto dtoEntity(ProductoDTO productosDto) {
 		if(productosDto == null) {
 			return null;
 		}

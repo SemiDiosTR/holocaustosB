@@ -3,7 +3,7 @@ package com.holocaustos.productos.models.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class ProductosDTO {
+public class ProductoDTO {
 		
 		private Long idProducto;
 

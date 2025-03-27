@@ -53,6 +53,7 @@ public class ClienteServiceImpl implements IClienteService{
 	}
 
 	@Override
+	@Transactional
 	public Optional<ClienteDTO> eliminarPorId(Long id) {
 		Optional <Cliente> cliente = repository.findById(id);		
 		if(cliente.isPresent()) {
@@ -64,6 +65,7 @@ public class ClienteServiceImpl implements IClienteService{
 	}
 
 	@Override
+	@Transactional
 	public ClienteDTO actualizar(ClienteDTO clienteDto, Long id) {
 		Optional<Cliente> optCliente = repository.findById(id);
 		if (optCliente.isPresent()) {

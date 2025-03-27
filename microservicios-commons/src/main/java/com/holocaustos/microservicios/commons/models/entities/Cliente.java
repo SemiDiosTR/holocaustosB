@@ -1,10 +1,17 @@
 package com.holocaustos.microservicios.commons.models.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -12,7 +19,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "CLIENTES", uniqueConstraints = @UniqueConstraint(columnNames = { "EMAIL","TELEFONO" }))
+@Table(name = "CLIENTES")//, uniqueConstraints = @UniqueConstraint(columnNames = { "EMAIL","TELEFONO" })) se comenta para prueba
 public class Cliente {
 	
 	@Id
@@ -62,6 +69,19 @@ public class Cliente {
 	@Size(max = 100, message = "La direccion no debe exceder 100 caracteres")
 	@Column(name = "DIRECCION") 
 	private String direccion;
+	
+    @OneToMany(mappedBy="cliente")
+    @JsonManagedReference    
+    private List<Pedido> pedidos;
+    
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 
 	public Long getIdCliente() {
 		return idCliente;
@@ -109,6 +129,13 @@ public class Cliente {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+	
+	@PrePersist
+	public void prePersist() {
+	    if(this.pedidos == null) {
+	        this.pedidos = new ArrayList<>();
+	    }
 	}
 
 }

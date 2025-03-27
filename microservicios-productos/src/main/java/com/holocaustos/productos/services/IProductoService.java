@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.holocaustos.microservicios.commons.models.entities.Producto;
-import com.holocaustos.productos.models.dto.ProductosDTO;
+import com.holocaustos.productos.models.dto.ProductoDTO;
 
 public interface IProductoService {
 	
@@ -14,11 +14,11 @@ public interface IProductoService {
 	//Optional<Producto> eliminarPorId(Long id);
 	//Producto actualizar(Producto producto, Long id);
 	
-	List<ProductosDTO> listar();
-	ProductosDTO obtenerPorId(Long id);
-	ProductosDTO crear(ProductosDTO productoDto);
-	Optional<ProductosDTO> eliminarPorId(Long id);
-	Producto actualizar(ProductosDTO productoDto, Long id);
+	List<ProductoDTO> listar();
+	ProductoDTO obtenerPorId(Long id);
+	ProductoDTO crear(ProductoDTO productoDto);
+	Optional<ProductoDTO> eliminarPorId(Long id);
+	Producto actualizar(ProductoDTO productoDto, Long id);
 	
 	
 

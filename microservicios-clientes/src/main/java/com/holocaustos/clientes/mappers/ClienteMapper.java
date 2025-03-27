@@ -1,8 +1,11 @@
 package com.holocaustos.clientes.mappers;
 
+import org.springframework.stereotype.Component;
+
 import com.holocaustos.clientes.models.dto.ClienteDTO;
 import com.holocaustos.microservicios.commons.models.entities.Cliente;
 
+@Component
 public class ClienteMapper {
 
 	/*

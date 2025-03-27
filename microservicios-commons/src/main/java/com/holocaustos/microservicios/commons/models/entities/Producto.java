@@ -1,10 +1,14 @@
 package com.holocaustos.microservicios.commons.models.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -37,15 +41,24 @@ public class Producto {
 	@Column(name="STOCK")
 	@NotNull(message = "El campo Stock no puede ir vacio")
 	@Min(value = 0, message = "El Stock no puede ser 0")
-	private Long stock;
+	private Long stock;//posible cambio por integer
 	
 	//Relacion de tabla producto y tabla pedido
-	//@ManyToMany(mappedBy = "productos")
+	@ManyToMany(mappedBy = "productos")
+	private List<Pedido> pedidos = new ArrayList<>(); //= new ArrayList<Pedido>(); se comenta para prueba
 	//private Set<Pedido> pedidos = new HashSet<>();
 	
 
 	public Long getIdProducto() {
 		return idProducto;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	public void setIdProducto(Long idProducto) {
