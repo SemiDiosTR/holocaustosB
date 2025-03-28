@@ -7,16 +7,18 @@ import com.holocaustos.microservicios.commons.models.entities.Producto;
 import com.holocaustos.pedidos.models.dto.PedidoDTO;
 import com.holocaustos.pedidos.models.enums.Estado;
 
-@Component //se quita component para prueba*********************************
+@Component
 public class PedidoMapper {
-	
+
 	public static PedidoDTO entityDto(Pedido pedido) {
 		if (pedido == null) {
 			return null;
 		}
 		PedidoDTO pedidoDto = new PedidoDTO();
 		pedidoDto.setIdPedido(pedido.getIdPedido());
-		pedidoDto.setIdCliente(pedido.getIdCliente());
+		if (pedido.getCliente() != null) {
+			pedidoDto.setIdCliente(pedido.getCliente().getIdCliente());
+		}
 
 		// meter productos en una lista,
 		// iterar la lista,
@@ -31,30 +33,30 @@ public class PedidoMapper {
 		return pedidoDto;
 	}
 
-	
-	public static Pedido dtoEntity(PedidoDTO pedidosDto) {
-		if (pedidosDto == null) {
+	public static Pedido dtoEntity(PedidoDTO pedidoDto) {
+		if (pedidoDto == null) {
 			return null;
 		}
 		Pedido pedido = new Pedido();
-		pedido.setIdPedido(pedidosDto.getIdPedido());
-		pedido.setIdCliente(pedidosDto.getIdCliente());
+		pedido.setIdPedido(pedidoDto.getIdPedido());
+
+		//FETCH ENTITY FROM DB
+		System.out.println("Pedido Mapper DTO=" + pedidoDto );
+		pedido.getCliente().setIdCliente(pedidoDto.getIdCliente());
+
+		// IMPLEMENTAR VIA FEIGN (Basado en Aerolinea Client)
+		// meter IDs en una lista de Objetos
+
+		// iterar la lista,
+		for (Long idProducto : pedidoDto.getIdProductos()) {
+			// vaciar de Dto a Objeto.id
+			pedido.getProductos().add(new Producto(idProducto));
+			
+		}
 		
-		
-		//IMPLEMENTAR VIA FEIGN (Basado en Aerolinea Client)
-//		// meter productos en una lista de IDs
-//
-//		// iterar la lista,
-//		for (Producto producto : pedido.getProductos()) {
-//			// vaciar de objeto a id
-//			pedidoDto.getIdProductos().add(producto.getIdProducto());
-//			pedido.setProductos(productosRe.);
-//			
-//		}
-//		
-		pedido.setTotal(pedidosDto.getTotal());
-		pedido.setFechaCreacion(pedidosDto.getFechaCreacion());
-		pedido.setEstado(pedidosDto.getEstado());
+		pedido.setTotal(pedidoDto.getTotal());
+		pedido.setFechaCreacion(pedidoDto.getFechaCreacion());
+		pedido.setEstado(pedidoDto.getEstado());
 		return pedido;
 	}
 

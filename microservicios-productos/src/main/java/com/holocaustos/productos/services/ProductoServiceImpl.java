@@ -64,13 +64,14 @@ public class ProductoServiceImpl implements IProductoService{
 	}
 
 	@Override
-	public Producto actualizar(ProductoDTO productoDto, Long id) {
+	public ProductoDTO actualizar(ProductoDTO productoDto, Long id) {
 		Optional<Producto> optProducto = repository.findById(id);
 		if (optProducto.isPresent()) {
 			Producto modProducto = ProductoMapper.dtoEntity(productoDto);
 			modProducto.setIdProducto(id);
-			//productoDto = ProductoMapper.entityDto(modProducto);
-			return repository.save(modProducto);
+			modProducto = repository.save(modProducto);
+			productoDto = ProductoMapper.entityDto(modProducto);
+			return productoDto;
 		}
 		return null;
 	}

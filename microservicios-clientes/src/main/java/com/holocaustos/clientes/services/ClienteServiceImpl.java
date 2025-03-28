@@ -70,6 +70,7 @@ public class ClienteServiceImpl implements IClienteService{
 		Optional<Cliente> optCliente = repository.findById(id);
 		if (optCliente.isPresent()) {
 			Cliente modCliente = ClienteMapper.dtoToEntity(clienteDto);
+			modCliente.setIdCliente(id);
 			repository.save(modCliente);
 			clienteDto = ClienteMapper.entitytoDto(modCliente);
 			return clienteDto;

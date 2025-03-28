@@ -18,6 +18,8 @@ import jakarta.validation.constraints.NotNull;
 @Table(name="PRODUCTOS")
 public class Producto {
 	
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="PRODUCTOS_SEQ")
 	@SequenceGenerator(name="PRODUCTOS_SEQ",sequenceName="PRODUCTOS_SEQ",allocationSize=1)
@@ -48,7 +50,15 @@ public class Producto {
 	private List<Pedido> pedidos = new ArrayList<>(); //= new ArrayList<Pedido>(); se comenta para prueba
 	//private Set<Pedido> pedidos = new HashSet<>();
 	
+	//CONSTRUCTORS
+	public Producto() {
+	}
 
+	public Producto(Long idProducto) {
+		this.idProducto = idProducto;
+	}
+
+	//GETTERS AND SETTERS
 	public Long getIdProducto() {
 		return idProducto;
 	}

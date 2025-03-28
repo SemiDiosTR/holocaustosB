@@ -19,7 +19,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "CLIENTES")//, uniqueConstraints = @UniqueConstraint(columnNames = { "EMAIL","TELEFONO" })) se comenta para prueba
+@Table(name = "CLIENTES", uniqueConstraints = @UniqueConstraint(columnNames = { "EMAIL","TELEFONO" })) 
 public class Cliente {
 	
 	@Id
@@ -70,7 +70,7 @@ public class Cliente {
 	@Column(name = "DIRECCION") 
 	private String direccion;
 	
-    @OneToMany(mappedBy="cliente")
+    @OneToMany(mappedBy="cliente") //XXX IS IT??
     @JsonManagedReference    
     private List<Pedido> pedidos;
     

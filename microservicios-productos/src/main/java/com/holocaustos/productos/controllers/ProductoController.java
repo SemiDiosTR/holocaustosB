@@ -72,9 +72,9 @@ public class ProductoController{
 		if (result.hasErrors()) {
 			return this.validar(result);
 		}
-		Producto productoD = service.actualizar(productoDto, id);
-		if (productoD != null) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(productoD);
+		productoDto = service.actualizar(productoDto, id);
+		if (productoDto != null) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(productoDto);
 		}
 		return ResponseEntity.notFound().build();
 	}

@@ -37,8 +37,10 @@ public class PedidoServiceImpl implements IPedidoService{
 	@Transactional(readOnly=true)
 	public PedidoDTO obtenerPorId(Long id) {
 		Optional<Pedido> optEntity = pedidosRepository.findById(id);
+		System.out.println("PEDIDO SERVICE BEFORE IF="+id + " Optional=" + optEntity);
 		if(optEntity.isPresent()) {
 			PedidoDTO dto = PedidoMapper.entityDto(optEntity.get());
+			System.out.println("PEDIDO SERVICE DTO=" + dto);
 			return dto;
 			}
 		return null;

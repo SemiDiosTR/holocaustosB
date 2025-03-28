@@ -45,22 +45,14 @@ public class Pedido {
 	private List<Producto> productos = new ArrayList<>();//se agrega new ArraysList se movio de antes get set "= new ArrayList<>(); se quita para prueba" ++++++++++++++	
 		
 
+	/*
 	@Column(name="ID_CLIENTE", insertable = false, updatable = false) // Almacena el nombre del pedido. El atributo "name" mapea la columna a este campo.
     // Sin esta línea, no habría vínculo directo con la columna "CLIENTE_ID".
-
 	private Long idCliente;
-	
+	*/
 
 	@Column(name="TOTAL")
 	private Double total;
-	
-	public Long getIdCliente() {
-		return idCliente;
-	}
-
-	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
-	}
 
 	@Column(name="FECHA_CREACION")
 	private LocalDate fechaCreacion;
@@ -79,6 +71,7 @@ public class Pedido {
 
 	
 	public Pedido() {
+		this.cliente = new Cliente();
 		this.productos = new ArrayList<>(); //se agrega para prueba ++++++++++++++
 	}
 

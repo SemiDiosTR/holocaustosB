@@ -36,6 +36,7 @@ public class PedidoController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<PedidoDTO> getById(@PathVariable Long id) {
+		System.out.println("getByID="+id+ "(Entity)="+service.obtenerPorId(id));
 		Optional<PedidoDTO> entity = Optional.of(service.obtenerPorId(id));
 		if (entity.isPresent()) {
 			return ResponseEntity.ok(entity.get());
@@ -77,6 +78,23 @@ public class PedidoController {
 		if (pedidoDto != null) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(pedidoDto);
 		}
+		return ResponseEntity.notFound().build();
+	}
+	
+	@PutMapping("/{idPed}/productos/{idPro}")
+	public ResponseEntity<PedidoDTO> update(@Valid @RequestBody PedidoDTO pedidoDto, BindingResult result,
+			@PathVariable Long idPro,@PathVariable Long idPed) {
+		System.out.println("IDPRO="+idPro+ "  IDPED="+idPed);
+		
+		if (result.hasErrors()) {
+			return (ResponseEntity<PedidoDTO>) this.validar(result);
+		}
+		pedidoDto = service.actualizar(pedidoDto, idPro);
+		
+		if (pedidoDto != null) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(pedidoDto);
+		}
+		
 		return ResponseEntity.notFound().build();
 	}
 	

@@ -18,7 +18,7 @@ public interface IProductoService {
 	ProductoDTO obtenerPorId(Long id);
 	ProductoDTO crear(ProductoDTO productoDto);
 	Optional<ProductoDTO> eliminarPorId(Long id);
-	Producto actualizar(ProductoDTO productoDto, Long id);
+	ProductoDTO actualizar(ProductoDTO productoDto, Long id);
 	
 	
 
