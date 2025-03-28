@@ -19,7 +19,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "CLIENTES", uniqueConstraints = @UniqueConstraint(columnNames = { "EMAIL","TELEFONO" })) 
+@Table(name = "CLIENTES", 
+uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"EMAIL"}), // First constraint
+    @UniqueConstraint(columnNames = {"TELEFONO"})  // Second constraint
+})
 public class Cliente {
 	
 	@Id
